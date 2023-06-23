@@ -41,7 +41,7 @@ export default function App() {
         isPassword={true}
       />
 
-      <TouchableOpacity>
+      <TouchableOpacity style={{marginTop: 15}}>
         <View style={styles.button}>
           <Text style={styles.ButtonText}>Entrar</Text>
         </View>
