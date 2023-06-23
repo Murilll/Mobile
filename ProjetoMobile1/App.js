@@ -29,16 +29,17 @@ export default function App() {
         }}
       />
 
-      <CustomInput value={email}/>
-      
-      <TextInput
-        placeholder='senha'
-        value={senha}
-        secureTextEntry={true}
-        onChangeText={(text) => setSenhaInputValue(text)}
-      >
+      <CustomInput
+        value={email}
+        placeholder={"E-mail"}
+        funcao={setEmailInputValue} />
 
-      </TextInput>
+      <CustomInput
+        placeholder={'Senha'}
+        value={senha}
+        funcao={setSenhaInputValue}
+        isPassword={true} />
+
       <Button color='#1d0c20' title='Entrar'></Button>
     </View>
   );

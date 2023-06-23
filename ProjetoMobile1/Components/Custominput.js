@@ -3,10 +3,12 @@ import { TextInput } from "react-native";
 const CustomInput = (props) => {
     return (
         <TextInput
-            placeholder='E-mail'
+            placeholder={props.placeholder}
             value={props.value}
-            onChangeText={(text) => setEmailInputValue(text)}
-        ></TextInput>
+            onChangeText={props.funcao}
+            secureTextEntry={props.isPassword ? true : false}
+        >
+        </TextInput>
     )
 }
 
