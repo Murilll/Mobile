@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, Touchable, TouchableOpacity } from 'react-native';
 import Logo from './assets/favicon.png'
 import CustomInput from './Components/Custominput';
 
@@ -38,9 +38,14 @@ export default function App() {
         placeholder={'Senha'}
         value={senha}
         funcao={setSenhaInputValue}
-        isPassword={true} />
+        isPassword={true}
+      />
 
-      <Button color='#1d0c20' title='Entrar'></Button>
+      <TouchableOpacity>
+        <View style={styles.button}>
+          <Text style={styles.ButtonText}>Entrar</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -51,6 +56,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+
+  button: {
+    backgroundColor: '#00D8FF',
+    width: 156,
+    height: 45,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5
+  },
+
+  ButtonText: { color: '#302850', fontSize: 16 }
 
 });
