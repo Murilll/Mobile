@@ -1,64 +1,58 @@
 const express = require('express')
-const cors = require('cors');
+const cors = require('cors')
+const mongoose = require('mongoose')
+const { Transaction } = require('./schemas/Transaction')
 
-const app = express();
+
+const app = express()
+
+app.use(express.json())
 app.use(cors())
 
+app.get('/', async (req, res) => {
 
-app.get('/', (req, res) => {
-    res.send("Olá")
+  await Transaction.create({
+    amount: 12.50,
+    reference: 'ref#01',
+    date: new Date().toString()
+  })  
+
+  res.send("Olá mundo")
 })
 
-app.get('/transactions', (req, res) => {
-    const arrTransactions = [
-        {
-            amount: 2500,
-            reference: 'Transacao 1',
-            date: new Date(),
-            currency: 'USD'
-        },
-        {
-            amount: 12500,
-            reference: 'Curso de programacao pro renato66',
-            date: new Date(),
-            currency: 'BRL'
-        },
-        {
-            amount: 3500,
-            reference: 'Mercado caro',
-            date: new Date(),
-            currency: 'USD'
-        },
-        {
-            amount: 7500,
-            reference: 'Adaptador usb c hdmi que nao funciona',
-            date: new Date(),
-            currency: 'EUR'
-        },
-        {
-            amount: 9500,
-            reference: 'Transacao 1',
-            date: new Date(),
-            currency: 'EUR'
-        },
-        {
-            amount: 2500,
-            reference: 'AIRBNB GmbH',
-            date: new Date(),
-            currency: 'USD'
-        },
-        {
-            amount: 600,
-            reference: 'Senai',
-            date: new Date(),
-            currency: 'USD'
-        }
-    ]
+app.post('/transaction', async (req, res) => {
+  
+  let userData = req.body;
 
-    res.json(arrTransactions)
+  await Transaction.create({
+    valor: userData.value,
+    referencia: userData.reference,
+    data: userData.date
+  })
+
+  res.sendStatus(200)
 })
 
-const port = 3000
-app.listen(port, () => {
-    console.log("TA RODANDO")
+
+app.get('/transactions', async(req, res) => {
+  // ORM chamando a tabela de transações
+  let query = await Transaction.find()
+  console.log(query)
+  res.json(query)
 })
+
+const PORT = 3000
+
+
+const serverInit = async () => {
+  await mongoose.connect(
+    'mongodb+srv://murilosertorio:murilo123@cluster0.fkvxfvl.mongodb.net/?retryWrites=true&w=majority')
+
+  app.listen(PORT, async () => {
+
+    console.log("Running at http://localhost:" + PORT)
+  })
+
+}
+
+serverInit()
